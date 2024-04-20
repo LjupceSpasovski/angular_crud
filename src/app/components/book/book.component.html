@@ -1,0 +1,59 @@
+<div class="container mx-auto p-6">
+    <h2 class="text-xl font-semibold mb-4">Books</h2>
+    <button (click)="logout()" class="bg-black hover:bg-gray-900 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+        Logout
+      </button>      
+    <div class="overflow-x-auto">
+        <table class="min-w-full border-collapse">
+            <thead>
+                <tr>
+                    <th class="border-b-2 px-4 py-2 text-left">Title</th>
+                    <th class="border-b-2 px-4 py-2 text-left">Author</th>
+                    <th class="border-b-2 px-4 py-2 text-left">Publication Year</th>
+                    <th class="border-b-2 px-4 py-2 text-left">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let book of books" class="border-b">
+                    <td class="px-4 py-2">{{ book.title }}</td>
+                    <td class="px-4 py-2">{{ book.author }}</td>
+                    <td class="px-4 py-2">{{ book.publicationYear }}</td>
+                    <td class="px-4 py-2">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            (click)="selectBook(book)">Edit</button>
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                            (click)="confirmDeleteBook(book)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="text-xl font-semibold mt-8">{{selectedBook._id == '' ? 'Add Book' : 'Edit Book'}}</h2>
+    <div class="mt-4">
+        <label for="bookTitle" class="block">Title:</label>
+        <input id="bookTitle" [(ngModel)]="selectedBook.title" placeholder="Enter title"
+            class="border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 w-full" />
+
+        <label for="bookAuthor" class="block mt-4">Author:</label>
+        <input id="bookAuthor" [(ngModel)]="selectedBook.author" placeholder="Enter author"
+            class="border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 w-full" />
+
+        <label for="bookPublicationYear" class="block mt-4">Publication Year:</label>
+        <input id="bookPublicationYear" type="number" [(ngModel)]="selectedBook.publicationYear"
+            placeholder="Enter Publication Year"
+            class="border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 w-full" />
+
+        <button (click)="selectedBook._id == '' ? confirmAddBook() : confirmEditBook()"
+            class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500">
+            {{ selectedBook._id == "" ? 'Add' : 'Edit' }}
+        </button>
+    </div>
+
+   
+      
+
+    <app-confirmation-dialog *ngIf="showConfirmationDialog" [bookTitle]="selectedBook.title" [action]="actionType"
+        (comfirmed)="handleAction($event)">
+    </app-confirmation-dialog>
+</div>

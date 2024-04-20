@@ -1,0 +1,11 @@
+<div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+    <div class="bg-white rounded-lg p-6">
+        <p class="text-lg">Are you sure you want to {{action}} the book "{{bookTitle}}"?</p>
+        <div class="mt-4 flex justify-center space-x-4">
+            <button (click)="confirm(true)"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500">Confirm</button>
+            <button (click)="confirm(false)"
+                class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-gray-400 focus:border-gray-400">Cancel</button>
+        </div>
+    </div>
+</div>
