@@ -31,14 +31,14 @@ jobs:
       - deploy:
           name: Deploy to S3 and invalidate CloudFront cache
           command: |
-      aws s3 sync dist/app-crud1 s3://my-angular-content --delete \
-        --region $REGION \
-        --access-key-id $AWS_ACCESS_KEY_ID \
-        --secret-access-key $AWS_SECRET_ACCESS_KEY
-      aws configure set preview.cloudfront true
-      aws cloudfront create-invalidation --distribution-id E1O65PNRA6OZ23 --paths "/*" \
-        --access-key-id $AWS_ACCESS_KEY_ID \
-        --secret-access-key $AWS_SECRET_ACCESS_KEY
+            aws s3 sync dist/app-crud1 s3://my-angular-content --delete \
+              --region $REGION \
+              --access-key-id $AWS_ACCESS_KEY_ID \
+              --secret-access-key $AWS_SECRET_ACCESS_KEY
+            aws configure set preview.cloudfront true
+            aws cloudfront create-invalidation --distribution-id E1O65PNRA6OZ23 --paths "/*" \
+              --access-key-id $AWS_ACCESS_KEY_ID \
+              --secret-access-key $AWS_SECRET_ACCESS_KEY
 
 workflows:
   version: 2
