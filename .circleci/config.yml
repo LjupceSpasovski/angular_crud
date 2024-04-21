@@ -16,7 +16,7 @@ jobs:
       # Build Angular app
       - run:
           name: Build Angular app
-          command: npm run build -- --prod
+          command: npm run build
 
       # Deploy to S3 and invalidate CloudFront cache
       - deploy:
