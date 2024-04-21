@@ -1,0 +1,36 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+
+    steps:
+      - checkout
+
+      # Install dependencies
+      - run:
+          name: Install dependencies
+          command: npm install
+
+      # Build Angular app
+      - run:
+          name: Build Angular app
+          command: npm run build -- --prod
+
+      # Deploy to S3 and invalidate CloudFront cache
+      - deploy:
+          name: Deploy to S3 and invalidate CloudFront cache
+          command: |
+            aws s3 sync dist/app-crud1 s3://YOUR_S3_BUCKET_NAME --delete
+            aws cloudfront create-invalidation --distribution-id E1O65PNRA6OZ23 --paths "/*"
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
