@@ -14,9 +14,9 @@ jobs:
           command: npm install
 
       - run:
-        name: Update package repositories
-        command: sudo apt-get update
-        
+          name: Update package repositories
+          command: sudo apt-get update
+
       # Install AWS CLI
       - run:
           name: Install AWS CLI
